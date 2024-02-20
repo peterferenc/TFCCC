@@ -30,7 +30,7 @@ jobs:
 
     - name: Install Google Java Format
       run: |
-       
+       npm -i google-java-format
 
 
     - name: Lint
