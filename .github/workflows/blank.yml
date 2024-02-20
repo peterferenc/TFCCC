@@ -36,8 +36,8 @@ jobs:
         # Run Google Java Format on all .java files
         # Replace the path 'src/' with the actual path to your source code
         npx google-java-format -i --glob=./*.java
-        echo pwd
-        echo ls -la
+        pwd
+        ls -la
         npx google-java-format -i --glob=./*.java
 
   # Add other stages or jobs as needed
