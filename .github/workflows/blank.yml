@@ -15,6 +15,20 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+
+  formatting:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    steps:
+      - uses: actions/checkout@v3 # v2 minimum required
+      - uses: axel-op/googlejavaformat-action@v3
+        with:
+          args: "--skip-sorting-imports --replace"
+
   build:
     runs-on: ubuntu-latest
 
@@ -35,9 +49,6 @@ jobs:
       run: |
         # Run Google Java Format on all .java files
         # Replace the path 'src/' with the actual path to your source code
-        npx google-java-format -i --glob=./*.java
-        pwd
-        ls -la
         npx google-java-format -i --glob=./*.java
 
   # Add other stages or jobs as needed
