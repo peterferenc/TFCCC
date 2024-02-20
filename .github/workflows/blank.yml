@@ -1,0 +1,43 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Setup Java
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'adopt'
+        java-version: '11'
+
+    - name: Install Google Java Format
+      run: |
+        #Install google-java-format-1.20.0-all-deps.jar
+        wget https://objects.githubusercontent.com/github-production-release-asset-2e65be/35448780/f53c7aa5-000f-4af9-9cb5-81c10575fd01?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20240220%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240220T093019Z&X-Amz-Expires=300&X-Amz-Signature=4b4dc254120527b1a177e3b63a93fb406508273e9a9b796911a08438647ca072&X-Amz-SignedHeaders=host&actor_id=34484785&key_id=0&repo_id=35448780&response-content-disposition=attachment%3B%20filename%3Dgoogle-java-format-1.20.0-all-deps.jar&response-content-type=application%2Foctet-stream
+
+
+    - name: Lint
+      run: |
+        # Run Google Java Format on all .java files
+        # Replace the path 'src/' with the actual path to your source code
+        find ./ -name '*.java' | xargs java -jar $(find . -name 'google-java-format-*.jar') --replace
+
+  # Add other stages or jobs as needed
